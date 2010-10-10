@@ -1,1 +1,2 @@
-A simple app to add projects/portfolio to your website
+- A simple app that implements two models for adding a portfolio of projects to your website. 
+- Requires django-photologue and django-zyelabs (which implements base classes)
