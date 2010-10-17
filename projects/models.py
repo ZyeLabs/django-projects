@@ -6,7 +6,7 @@ from photologue.models import Gallery
 class Project(Base):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
-    technologies = models.ManyToManyField('Technology', blank=True, null=True)
+    technologies = models.ManyToManyField('Technology', blank=True, null=True, through='ProjectTechnology')
     image = models.ForeignKey(Image)
     gallery = models.ForeignKey(Gallery, null=True, blank=True)
 
@@ -22,6 +22,7 @@ class Project(Base):
 
 class Technology(Base):
     image = models.ForeignKey(Image)
+    projects = models.ManyToManyField('Project', blank=True, null=True, through='ProjectTechnology')
 
     class Meta:
         ordering = ['title']
@@ -32,3 +33,7 @@ class Technology(Base):
     @models.permalink
     def get_absolute_url(self):
         return ('technology_detail', (), {"slug": self.slug})
+
+class ProjectTechnology(models.Model):
+    technology = models.ForeignKey(Technology)
+    project = models.ForeignKey(Project)
